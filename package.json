@@ -8,6 +8,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "formidable": "^1.2.2",
     "html-pdf": "^2.2.0",
     "next": "10.0.5",
     "react": "17.0.1",
