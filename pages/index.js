@@ -1,16 +1,47 @@
-import React from "react";
+import React, { useState } from "react";
 
 const Home = () => {
+  const [fileArray, setFileArray] = useState()
+
+  const uploadMultipleFiles = (e) => {
+    let fileObj = []
+    let fileArray = []
+    fileObj.push(e.target.files)
+    for (let i = 0; i < fileObj[0].length; i++) {
+      fileArray.push(URL.createObjectURL(fileObj[0][i]))
+    }
+    setFileArray(fileArray)
+  }
+
+  const uploadFiles = (e) => {
+    e.preventDefault()    
+    console.log('fileArray', fileArray)
+  }
+
+
+  
+
   return (
     <React.Fragment>
 
-      <form action="/api/upload" enctype="multipart/form-data" method="post">
-        <div>Text field title: <input type="text" name="title" /></div>
-        <div>File: <input type="file" name="multipleFiles" multiple="multiple" /></div>
-        <input type="submit" value="Upload" />
-      </form>
+      <form>
+        <div className="form-group multi-preview">
 
-      <a href="/api/hello?exportPDF=true">create pdf</a>
+          <div className="row">
+            {(fileArray || []).map((url, index) => (
+              <div className="col-md-4" key={index}>
+                <img className="img-fluid" src={url} alt="..." />
+              </div>
+            ))}
+          </div>
+
+        </div>
+
+        <div className="form-group">
+          <input type="file" className="form-control" onChange={uploadMultipleFiles} multiple />
+        </div>
+        <button type="button" className="btn btn-danger btn-block" onClick={uploadFiles}>Create PDF</button>
+      </form>
     </React.Fragment>
   )
 }

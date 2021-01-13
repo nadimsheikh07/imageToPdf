@@ -5,7 +5,7 @@ export default async (req, res) => {
   const { query } = req
   const exportPDF = query.exportPDF === 'true';
   const isServer = !!req;
-  
+
   if (isServer && exportPDF) {
     const buffer = await pdfHelper.componentToPDFBuffer(
       <React.Fragment>
