@@ -1,20 +1,13 @@
 
 import React from "react";
 import pdfHelper from "../../helper/pdfHelper";
+import RenderHtml from "../../component/renderHtml"
 
 export default async (req, res) => {
   const { files } = req.query
   const fileArray = JSON.parse(files)
   const buffer = await pdfHelper.componentToPDFBuffer(
-    <React.Fragment>
-      <div className="row">
-        {(fileArray || []).map((url, index) => (
-          <div className="col-md-4" key={index}>
-            <img className="img-fluid" src={url} alt="..." />
-          </div>
-        ))}
-      </div>
-    </React.Fragment>
+    <RenderHtml fileArray={fileArray} />
   );
 
   // prompt to download pdf

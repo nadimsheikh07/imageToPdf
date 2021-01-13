@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import RenderHtml from "../component/renderHtml"
 const Home = () => {
   const [fileArray, setFileArray] = useState()
 
@@ -13,6 +13,7 @@ const Home = () => {
     setFileArray(fileArray)
   }
 
+
   const uploadFiles = (e) => {
     e.preventDefault()
 
@@ -20,23 +21,13 @@ const Home = () => {
 
   }
 
-
-  console.log('fileArray', fileArray)
-
-
   return (
     <React.Fragment>
 
       <form>
         <div className="form-group multi-preview">
 
-          <div className="row">
-            {(fileArray || []).map((url, index) => (
-              <div className="col-md-4" key={index}>
-                <img className="img-fluid" src={url} alt="..." />
-              </div>
-            ))}
-          </div>
+          <RenderHtml fileArray={fileArray} />
 
         </div>
 
