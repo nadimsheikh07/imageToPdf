@@ -14,12 +14,15 @@ const Home = () => {
   }
 
   const uploadFiles = (e) => {
-    e.preventDefault()    
-    console.log('fileArray', fileArray)
+    e.preventDefault()
+
+    window.location.replace(`/api/hello?files=${JSON.stringify(fileArray)}`)
+
   }
 
 
-  
+  console.log('fileArray', fileArray)
+
 
   return (
     <React.Fragment>

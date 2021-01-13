@@ -1,28 +1,28 @@
+
 import React from "react";
 import pdfHelper from "../../helper/pdfHelper";
 
 export default async (req, res) => {
-  const { query } = req
-  const exportPDF = query.exportPDF === 'true';
-  const isServer = !!req;
+  const { files } = req.query
+  const fileArray = JSON.parse(files)
+  const buffer = await pdfHelper.componentToPDFBuffer(
+    <React.Fragment>
+      <div className="row">
+        {(fileArray || []).map((url, index) => (
+          <div className="col-md-4" key={index}>
+            <img className="img-fluid" src={url} alt="..." />
+          </div>
+        ))}
+      </div>
+    </React.Fragment>
+  );
 
-  if (isServer && exportPDF) {
-    const buffer = await pdfHelper.componentToPDFBuffer(
-      <React.Fragment>
-        <h1>Hello Pdf</h1>
-      </React.Fragment>
-    );
+  // prompt to download pdf
+  res.setHeader('Content-disposition', 'attachment; filename="article.pdf');
 
-    // prompt to download pdf
-    res.setHeader('Content-disposition', 'attachment; filename="article.pdf');
+  // set content type
+  res.setHeader('Content-Type', 'application/pdf');
 
-    // set content type
-    res.setHeader('Content-Type', 'application/pdf');
-
-    // output the pdf buffer
-    res.end(buffer);
-  }
-
-  res.statusCode = 200
-  res.json({ message: 'export done' })
+  // output the pdf buffer
+  res.end(buffer);
 }
