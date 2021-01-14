@@ -9,7 +9,7 @@ export default async (req, res) => {
     <div className="row">
       {(fileArray || []).map((data, index) => (
         <div className="col-md-4" key={index}>
-          <img className="img-fluid" src={data.url} alt="..." />
+          <img width="300" className="img-fluid" src={data.url} alt="..." />
         </div>
       ))}
     </div>

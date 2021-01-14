@@ -46,7 +46,7 @@ const Home = () => {
   }
 
   return (
-    <React.Fragment>
+    <div className="container">
 
       <form>
         <div className="form-group multi-preview">
@@ -60,7 +60,7 @@ const Home = () => {
         </div>
         <button type="button" className="btn btn-danger btn-block" onClick={uploadFiles}>Create PDF</button>
       </form>
-    </React.Fragment>
+    </div>
   )
 }
 
