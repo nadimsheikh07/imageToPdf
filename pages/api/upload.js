@@ -23,7 +23,7 @@ export default (req, res) => {
 
   })
 
-  return promise.then(({ fields, files }) => {
-    res.status(200).json({ fields, files })
+  return promise.then(({ files }) => {
+    res.status(200).json(files)
   })
 }

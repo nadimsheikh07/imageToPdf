@@ -19,20 +19,36 @@ const Home = () => {
 
   const uploadFiles = (e) => {
     e.preventDefault()
-    const config = { headers: { 'Content-Type': 'multipart/form-data' } };
+
     const data = new FormData();
-    data.append('file', fileObj[0]);
+
+    for (let index = 0; index <= fileObj.length; index++) {
+      const element = fileObj[index];
+      data.append('file', element)
+    }
+
+    const config = { headers: { 'Content-Type': 'multipart/form-data' } };
     axios.post('/api/upload', data, config).then((res) => {
-      console.log(res);
+      if (res.status == 200) {
+        let fileArray = []
+        if (res.data && res.data.file) {
+          res.data.file.forEach(element => {
+            fileArray.push({
+              url: `http://localhost:3000/${element.path.replace('public/', '')}`
+            })
+          });
+        }
+        console.log('fileArray', fileArray)
+        window.location.replace(`/api/hello?files=${JSON.stringify(fileArray)}`)
+      }
     });
-    // window.location.replace(`/api/hello?files=${JSON.stringify(fileArray)}`)
 
   }
 
   return (
     <React.Fragment>
 
-      <form enctype="multipart/form-data">
+      <form>
         <div className="form-group multi-preview">
 
           <RenderHtml fileArray={fileArray} />
